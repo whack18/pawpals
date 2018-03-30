@@ -1,13 +1,13 @@
 {
-  "name": "hackathon-starter",
-  "version": "4.4.0",
-  "description": "A boilerplate for Node.js web applications",
+  "name": "Pawpals",
+  "version": "1.0.0",
+  "description": "Doggy pal finder",
   "repository": {
     "type": "git",
-    "url": "https://github.com/sahat/hackathon-starter.git"
+    "url": "https://github.com/whack18/pawpals"
   },
-  "author": "Sahat Yalkabov",
-  "license": "MIT",
+  "author": "Yun Tse Wu, Tiffany Warner, Linda, Anhdung Pham ",
+  "license": "ISC",
   "scripts": {
     "postinstall": "npm rebuild node-sass",
     "start": "node app.js",
