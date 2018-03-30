@@ -19,12 +19,11 @@ exports.getLogin = (req, res) => {
 
 /**
  * POST /login
- * Sign in using email and password.
+ * Sign in using username and password.
  */
 exports.postLogin = (req, res, next) => {
-  req.assert('email', 'Email is not valid').isEmail();
+  req.assert('username', 'Username is not valid').notEmpty();
   req.assert('password', 'Password cannot be blank').notEmpty();
-  req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
 
   const errors = req.validationErrors();
 
@@ -78,6 +77,7 @@ exports.getSignup = (req, res) => {
  * Create a new local account.
  */
 exports.postSignup = (req, res, next) => {
+  req.assert('username', 'Username is required').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -91,23 +91,37 @@ exports.postSignup = (req, res, next) => {
   }
 
   const user = new User({
+    username: req.body.username,
     email: req.body.email,
     password: req.body.password
   });
+  //Note: Password gets hashed with bcrypt. See User.js in Models
 
-  User.findOne({ email: req.body.email }, (err, existingUser) => {
+
+  //Check for duplicate usernames
+  User.findOne({ username: req.body.username }, (err, existingUser) => {
     if (err) { return next(err); }
     if (existingUser) {
-      req.flash('errors', { msg: 'Account with that email address already exists.' });
+      req.flash('errors', { msg: 'Account with that username already exists.' });
       return res.redirect('/signup');
     }
-    user.save((err) => {
+    //Check for duplicate emails
+    User.findOne({ email: req.body.email }, (err, existingUser) => {
       if (err) { return next(err); }
-      req.logIn(user, (err) => {
-        if (err) {
-          return next(err);
-        }
-        res.redirect('/');
+      if (existingUser) {
+        req.flash('errors', { msg: 'Account with that email address already exists.' });
+        return res.redirect('/signup');
+      }
+      
+      user.save((err) => {
+        if (err) { return next(err); }
+        req.logIn(user, (err) => {
+          if (err) {
+            return next(err);
+          }
+          req.flash('success', { msg:'You are now registered! Welcome to Pawpals!'})
+          res.redirect('/');
+        });
       });
     });
   });
@@ -217,9 +231,9 @@ exports.getOauthUnlink = (req, res, next) => {
 };
 
 /**
- * GET /reset/:token
- * Reset Password page.
- */
+* GET /reset/:token
+* Reset Password page.
+*/
 exports.getReset = (req, res, next) => {
   if (req.isAuthenticated()) {
     return res.redirect('/');
@@ -240,9 +254,9 @@ exports.getReset = (req, res, next) => {
 };
 
 /**
- * POST /reset/:token
- * Process the reset password request.
- */
+* POST /reset/:token
+* Process the reset password request.
+*/
 exports.postReset = (req, res, next) => {
   req.assert('password', 'Password must be at least 4 characters long.').len(4);
   req.assert('confirm', 'Passwords must match.').equals(req.body.password);
@@ -302,9 +316,9 @@ exports.postReset = (req, res, next) => {
 };
 
 /**
- * GET /forgot
- * Forgot Password page.
- */
+* GET /forgot
+* Forgot Password page.
+*/
 exports.getForgot = (req, res) => {
   if (req.isAuthenticated()) {
     return res.redirect('/');
@@ -315,9 +329,9 @@ exports.getForgot = (req, res) => {
 };
 
 /**
- * POST /forgot
- * Create a random token, then the send user an email with a reset link.
- */
+* POST /forgot
+* Create a random token, then the send user an email with a reset link.
+*/
 exports.postForgot = (req, res, next) => {
   req.assert('email', 'Please enter a valid email address.').isEmail();
   req.sanitize('email').normalizeEmail({ gmail_remove_dots: false });
