@@ -1,5 +1,12 @@
 extends layout
 
 block content
-  h1 Home Page
-  p.lead A boilerplate for Node.js web applications.
+  style
+    include ../public/css/home.css
+  div.home
+    div.container.header
+      h1 Find Your Pup a BFF
+      p Meet local Pups looking for playdates
+    div.container.signup
+      a(href='/signup') Sign Up
+      

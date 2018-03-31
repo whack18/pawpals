@@ -1,0 +1,49 @@
+body, html {
+    height: 100%;
+    margin: 0;
+    font-size: 15px;
+    font-weight: 400;
+    line-height: 1.8em;
+    color: #333;
+}
+.nav-font{
+  font-size: 5em;
+  background-color: #9be8dc;
+}
+.home {
+    position:absolute;
+    top:0;
+    left:0;
+    right:0;
+    background-image: url('/imgs/3pups.jpg');
+    background-attachment: fixed;
+    /*Parallax effect*/
+    background-repeat: no-repeat;
+    background-position: center center;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    min-height: 100%;
+}
+.header{
+    text-align: center;
+    margin-top: 100px;
+    color:white;
+    font-family:'Indie Flower', cursive;
+    font-size: 2em;
+}
+.header h1{
+    font-family:'Indie Flower', cursive;
+    font-size: 2em;
+}
+.signup{
+    text-align: center;
+    margin-top: 2.2em;
+    font-size: 6em;
+}
+.signup a, .signup a:hover, .signup a:active{
+    color: white;
+    text-decoration: none;
+    font-family:'Abril Fatface', cursive;
+}
