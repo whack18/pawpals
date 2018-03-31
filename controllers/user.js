@@ -134,6 +134,7 @@ exports.postSignup = (req, res, next) => {
  * Profile page.
  */
 exports.getAccount = (req, res) => {
+  console.log(req.user.dogs);
   res.render('account/profile', {
     title: 'Account Management'
   });
@@ -161,7 +162,8 @@ exports.postUpdateProfile = (req, res, next) => {
     user.profile.fullname = req.body.fullname || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
-    user.profile.website = req.body.website || '';
+    user.profile.biography = req.body.biography || '';
+    user.profile.picture = req.file.filename || '';
     user.save((err) => {
       if (err) {
         if (err.code === 11000) {

@@ -4,7 +4,7 @@ block content
   .page-header
     h3 Profile Information
 
-  form.form-horizontal(action='/account/profile', method='POST')
+  form.form-horizontal(action='/account/profile', enctype='multipart/form-data', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='email') Email
@@ -35,13 +35,18 @@ block content
       .col-sm-7
         input.form-control(type='text', name='location', id='location', value=user.profile.location)
     .form-group
-      label.col-sm-3.control-label(for='website') Website
+      label.col-sm-3.control-label(for='biography') Biography
       .col-sm-7
-        input.form-control(type='text', name='website', id='website', value=user.profile.website)
+        input.form-control(type='text', name='biography', id='biography', value=user.profile.biography)
     .form-group
-      label.col-sm-3.control-label Gravatar
+      label.col-sm-3.control-label Profile Picture
       .col-sm-4
-        img(src=user.gravatar(), class='profile', width='100', height='100')
+        if user.profile.picture
+          img(src='./uploads/'+user.profile.picture, class='profile', width='300', height='300')
+        else
+          img(src=user.gravatar(), class='profile', width='200', height='200')
+        h4 Upload Profile Picture
+        input(type='file' name='user-pic')
     .form-group
       .col-sm-offset-3.col-sm-4
         button.btn.btn.btn-primary(type='submit')
@@ -50,10 +55,14 @@ block content
 
   .page-header
     h3 Dog Information
-    ul
-      each dog in user.dogs
-       li= dog
-
+      ul
+        each dog in user.dogs
+          li= dog
+            h5= dog.name
+            if dog.picture
+              img(src='./uploads/'+dog.picture[0], class='profile', width='300', height='300')
+            p= dog.breed
+            p= dog.age
 
   .page-header
     h3 Change Password
