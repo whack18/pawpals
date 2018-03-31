@@ -2,7 +2,9 @@ const bcrypt = require('bcrypt-nodejs');
 const crypto = require('crypto');
 const mongoose = require('mongoose');
 
-const userSchema = new mongoose.Schema({
+const Schema = mongoose.Schema;
+
+const userSchema = Schema({
   email: { type: String, unique: true },
   username: {type: String, unique: true},
   fullname: String,
@@ -17,7 +19,7 @@ const userSchema = new mongoose.Schema({
     biography: String,
     picture: String
   },
-  dogs: [String]
+  dogs: [{ type: Schema.Types.ObjectId, ref: 'Dog' }]
 }, { timestamps: true });
 
 /**
