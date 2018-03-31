@@ -3,6 +3,8 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Dogs = require('../models/Dog');
+
 
 /**
  * GET /login
@@ -133,6 +135,7 @@ exports.postSignup = (req, res, next) => {
  * GET /account
  * Profile page.
  */
+
 exports.getAccount = (req, res) => {
   User.findById(req.user._id).populate('dogs').exec(function(err,person){
     let dogs;
