@@ -35,7 +35,9 @@ exports.postAddDog = (req, res, next) => {
       dog.temperament = req.body.temperament || '';
       dog.energy_level = req.body.energy_level || '';
       dog.about = req.body.about || '';
-      dog.picture = req.file.filename || '';
+      if(req.file){
+          dog.picture = '../uploads/' + req.file.filename;
+      }
       dog.save((err) => {
           if(err){
               console.log(err);

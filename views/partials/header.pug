@@ -27,7 +27,7 @@
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture
-                img(src='./uploads/'+user.profile.picture)
+                img(src=user.profile.picture)
               else
                 img(src=user.gravatar(60))
               span= user.username || user.email || user.id
