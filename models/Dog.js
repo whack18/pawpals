@@ -9,7 +9,7 @@ const dogSchema = new mongoose.Schema({
   gender:       String,
   age:          Date,
   fixed:        String,
-  tempermeant:  String,
+  temperament:  String,
   energy_level: String,
   about:        String,
 

@@ -134,9 +134,15 @@ exports.postSignup = (req, res, next) => {
  * Profile page.
  */
 exports.getAccount = (req, res) => {
-  res.render('account/profile', {
-    title: 'Account Management'
-  });
+  User.findById(req.user._id).populate('dogs').exec(function(err,person){
+    let dogs;
+    if(person.dogs){
+      dogs = person.dogs;
+    }
+    res.render('account/profile', {
+      title: 'Account Management', dogs: dogs
+    });
+  })
 };
 
 /**
@@ -161,7 +167,10 @@ exports.postUpdateProfile = (req, res, next) => {
     user.profile.fullname = req.body.fullname || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
-    user.profile.website = req.body.website || '';
+    user.profile.biography = req.body.biography || '';
+    if(req.file){
+      user.profile.picture = '../uploads/' + req.file.filename;
+    }
     user.save((err) => {
       if (err) {
         if (err.code === 11000) {

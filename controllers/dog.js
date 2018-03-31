@@ -27,14 +27,17 @@ exports.postAddDog = (req, res, next) => {
       let dog = new Dog();
       dog.name = req.body.name;
       dog.owner = req.user._id; //Connects dog to the user
-      dog.breed = req.body.breed;
-      dog.weight = req.body.weight;
-      dog.gender = req.body.gender;
-      dog.age = req.body.age;
-      dog.fixed = req.body.fixed;
-      dog.tempermeant = req.body.tempermeant;
-      dog.energy_level = req.body.energy_level;
-      dog.about = req.body.about;
+      dog.breed = req.body.breed || '';
+      dog.weight = req.body.weight || '';
+      dog.gender = req.body.gender || '';
+      dog.age = req.body.age || '';
+      dog.fixed = req.body.fixed || '';
+      dog.temperament = req.body.temperament || '';
+      dog.energy_level = req.body.energy_level || '';
+      dog.about = req.body.about || '';
+      if(req.file){
+          dog.picture = '../uploads/' + req.file.filename;
+      }
       dog.save((err) => {
           if(err){
               console.log(err);
