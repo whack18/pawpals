@@ -1,4 +1,4 @@
-.navbar.navbar-default.navbar-fixed-top
+.navbar.navbar-default.navbar-fixed-top.nav-font
   .container
     .navbar-header
       button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
@@ -8,7 +8,7 @@
         span.icon-bar
       a.navbar-brand(href='/')
         i.fa.fa-paw
-        | Paw Pals
+        | PAWPALS
     .collapse.navbar-collapse
       ul.nav.navbar-nav
         li(class=(title === 'Home') ? 'active' : undefined)
@@ -20,7 +20,7 @@
           li(class=(title === 'Login') ? 'active' : undefined)
             a(href='/login') Login
           li(class=(title === 'Create Account') ? 'active' : undefined)
-            a(href='/signup') Create Account
+            a(href='/signup') Sign Up
         else
           li(class=(title === 'Add Dog') ? 'active' : undefined)
             a(href='/account/addDog') Add Dog

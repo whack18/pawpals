@@ -3,6 +3,8 @@ const crypto = bluebird.promisifyAll(require('crypto'));
 const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
+const Dogs = require('../models/Dog');
+
 
 /**
  * GET /login
@@ -133,7 +135,27 @@ exports.postSignup = (req, res, next) => {
  * GET /account
  * Profile page.
  */
+ 
+//Query
+function findDogs(userID){
+  var MongoClient = require('mongodb').MongoClient;
+  let url = 'mongodb://localhost:27017/pawpals';
+  
+  MongoClient.connect(url, function(err, db){
+    if(err) throw err;
+    let dbo = db.db("pawpals");
+  
+  dbo.collection("dogs").find({owner: userID}), (err, result) => {
+       if(err) throw err;
+      console.log(result);
+      dbo.close();
+  };
+  });
+}
+
 exports.getAccount = (req, res) => {
+  let dogs = [];
+  findDogs(req.user._id);
   res.render('account/profile', {
     title: 'Account Management'
   });
