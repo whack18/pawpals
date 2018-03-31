@@ -4,36 +4,39 @@ block content
   .page-header
     h3 Dog Information
 
-  form.form-horizontal(action='/account/addDog', method='POST')
+  form.form-horizontal(action='/account/addDog', enctype='multipart/form-data', method='POST')
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
-      label.col-sm-3.control-label(for='name') Dog's Name
+      label.col-sm-3.control-label(for='name') Name
       .col-sm-7
-        input.form-control(type='text', name='name', id='name' placeholder='Ex: Fido')
-      label.col-sm-3.control-label(for='name') Dog's Breed
+        input.form-control(type='text', name='name', id='name' placeholder='Fido')
+      label.col-sm-3.control-label(for='name') Breed
       .col-sm-7
-        input.form-control(type='text', name='breed', id='breed' placeholder='Ex: Chow Chow')
-      label.col-sm-3.control-label(for='name') Dog's Weight (lb)
+        input.form-control(type='text', name='breed', id='breed' placeholder='Chihuahua')
+      label.col-sm-3.control-label(for='name') Weight (lb)
       .col-sm-7
-        input.form-control(type='text', name='weight', id='weight' placeholder='Ex: 55')
-      label.col-sm-3.control-label(for='name') Dog's Gender
+        input.form-control(type='text', name='weight', id='weight' placeholder='55')
+      label.col-sm-3.control-label(for='name') Gender
       .col-sm-7
-        input.form-control(type='text', name='gender', id='gender' placeholder='Ex: Male')
-      label.col-sm-3.control-label(for='name') Dog's Age
+        input.form-control(type='text', name='gender', id='gender' placeholder='Male')
+      label.col-sm-3.control-label(for='name') Age
       .col-sm-7
-        input.form-control(type='text', name='age', id='age' placeholder='Ex: 04/15/2013')
-      label.col-sm-3.control-label(for='name') Dog's Fixed
+        input.form-control(type='text', name='age', id='age' placeholder='04/15/2013')
+      label.col-sm-3.control-label(for='name') Whether Dog is Fixed
       .col-sm-7
-        input.form-control(type='text', name='fixed', id='fixed' placeholder='Ex: Yes')
-      label.col-sm-3.control-label(for='name') Dog's Temperament
+        input.form-control(type='text', name='fixed', id='fixed' placeholder='Yes/No')
+      label.col-sm-3.control-label(for='name') Temperament
       .col-sm-7
-        input.form-control(type='text', name='tempermeant', id='tempermeant' placeholder='Ex: Calm')
-      label.col-sm-3.control-label(for='name') Dog's Energy Level
+        input.form-control(type='text', name='temperament', id='temperament' placeholder='Calm')
+      label.col-sm-3.control-label(for='name') Energy Level
       .col-sm-7
-        input.form-control(type='text', name='energy_level', id='energy_level' placeholder='Ex: Medium')
-      label.col-sm-3.control-label(for='name') About this Doggo
+        input.form-control(type='text', name='energy_level', id='energy_level' placeholder='Medium')
+      label.col-sm-3.control-label(for='name') About Dog
       .col-sm-7
-        input.form-control(type='text', name='about', id='about' placeholder='Ex: I Woof')
+        input.form-control(type='text', name='about', id='about' placeholder='I Woof')
+      label.col-sm-3.control-label(for='picture') Profile Picture
+      .col-sm-7
+        input(type='file' name='dog-pic')
     .form-group
       .col-sm-offset-3.col-sm-6
         button.btn.btn-success(type='submit')

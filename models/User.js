@@ -14,7 +14,7 @@ const userSchema = new mongoose.Schema({
     birthdate: Date,
     gender: String,
     location: String,
-    website: String,
+    biography: String,
     picture: String
   },
   dogs: [String]
