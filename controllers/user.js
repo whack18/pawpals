@@ -78,6 +78,7 @@ exports.getSignup = (req, res) => {
  */
 exports.postSignup = (req, res, next) => {
   req.assert('username', 'Username is required').notEmpty();
+  req.assert('fullname', 'Full Name is required').notEmpty();
   req.assert('email', 'Email is not valid').isEmail();
   req.assert('password', 'Password must be at least 4 characters long').len(4);
   req.assert('confirmPassword', 'Passwords do not match').equals(req.body.password);
@@ -92,6 +93,7 @@ exports.postSignup = (req, res, next) => {
 
   const user = new User({
     username: req.body.username,
+    fullname: req.body.fullname,
     email: req.body.email,
     password: req.body.password
   });
@@ -155,7 +157,8 @@ exports.postUpdateProfile = (req, res, next) => {
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
     user.email = req.body.email || '';
-    user.profile.name = req.body.name || '';
+    user.birthdate = req.body.birthdate || '';
+    user.profile.fullname = req.body.fullname || '';
     user.profile.gender = req.body.gender || '';
     user.profile.location = req.body.location || '';
     user.profile.website = req.body.website || '';
