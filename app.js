@@ -149,7 +149,7 @@ app.post('/signup', userController.postSignup);
 
 app.get('/account/addDog', dogController.getAddDog);
 app.post('/account/addDog', upload.single('dog-pic'), dogController.postAddDog);
-// app.post('/dog/delete', passportConfig.isAuthenticated, dogController.postDeleteDog);
+app.post('/dog/delete/:id', dogController.postDeleteDog);
 app.get('/dog/edit/:id', dogController.getEditDog);
 app.post('/dog/edit/:id', dogController.postUpdateDog);
 

@@ -95,14 +95,14 @@ exports.postUpdateDog = function(req, res){
 
 /**
  * POST /dog/delete
- * Delete user account.
+ * Delete dog
  */
 exports.postDeleteDog = (req, res, next) => {
-  Dog.remove({ _id: req.user.id }, (err) => {
-    if (err) { return next(err); }
-    req.logout();
-    req.flash('info', { msg: 'Your account has been deleted.' });
-    res.redirect('/');
+  
+  Dog.remove({ _id: req.params.id }, (err) => {
+    if (err) throw err;
+    req.flash('info', { msg: `Dog has been deleted.` });
+    res.redirect('/account');
   });
 };
 
