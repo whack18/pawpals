@@ -61,7 +61,8 @@
     "tumblr.js": "^1.1.1",
     "twilio": "^3.14.0",
     "twit": "^2.2.9",
-    "validator": "^9.4.1"
+    "validator": "^9.4.1",
+    "zipcodes": "^6.0.0"
   },
   "peerDependencies": {
     "node-sass": "^4.7.2"

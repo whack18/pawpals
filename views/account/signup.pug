@@ -7,17 +7,25 @@ block content
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group
       label.col-sm-3.control-label(for='username') Username
+        span.text-danger *
       .col-sm-6
-        input.form-control(type='text', name='username', id='username', placeholder='Username', autofocus, required)
+        input.form-control(type='text', name='username', id='username', placeholder='Username is required', autofocus, required)
     .inline
       .form-group
         label.col-sm-3.control-label(for='firstname') Full Name
+          span.text-danger *
         .col-sm-6
-          input.col-sm-3.form-control(type='text', name='fullname', id='fullname', placeholder='Full Name', autofocus, required)
+          input.col-sm-3.form-control(type='text', name='fullname', id='fullname', placeholder='Full Name is required', autofocus, required)
     .form-group
       label.col-sm-3.control-label(for='email') Email
+        span.text-danger *
       .col-sm-6
-        input.form-control(type='email', name='email', id='email', placeholder='Email', autofocus, required)
+        input.form-control(type='email', name='email', id='email', placeholder='Email is required', autofocus, required)
+    .form-group
+      label.col-sm-3.control-label(for='zipcode') ZIP Code
+        span.text-danger *
+      .col-sm-6
+        input.form-control(type='text', pattern="[0-9]{5}", placeholder='5 digit number. We need your ZIP code to show nearby dogs.', name='zipcode', id='zipcode', autofocus, required)
     .form-group
       label.col-sm-3.control-label(for='password') Password
       .col-sm-6
