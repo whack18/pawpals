@@ -11,11 +11,15 @@ const userSchema = Schema({
   password: String,
   passwordResetToken: String,
   passwordResetExpires: Date,
+  zipcode: String,
+  location: {
+    type: { type: String }, 
+    coordinates: []
+  },
 
   profile: {
     birthdate: Date,
     gender: String,
-    location: String,
     biography: String,
     picture: String
   },

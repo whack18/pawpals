@@ -18,6 +18,7 @@ const passport = require('passport');
 const expressValidator = require('express-validator');
 const expressStatusMonitor = require('express-status-monitor');
 const sass = require('node-sass-middleware');
+const zipcodes = require('zipcodes');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
