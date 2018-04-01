@@ -149,6 +149,7 @@ app.post('/account/addDog', upload.single('dog-pic'), dogController.postAddDog);
 app.post('/dog/delete/:id', dogController.postDeleteDog);
 app.get('/dog/:id', dogController.getEditDog);
 app.post('/dog/edit/:id', upload.single('dog-pic'), dogController.postUpdateDog);
+app.post('/dog/comment/:id', dogController.postComment);
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
