@@ -120,19 +120,31 @@ block content
       label.col-sm-2(for='energy') Energy
       .col-sm-4
         label.radio-inline
-          input(type='radio', name='energy', value="low")
-          | Low
+          if (dog.energy=='low')
+            input(type='radio', name='energy', value="low" checked)
+            | Low
+          else
+            input(type='radio', name='energy', value="low")
+            | Low
         label.radio-inline
-          input(type='radio', name='energy', value="medium")
-          | Medium
+          if (dog.energy=='medium')
+            input(type='radio', name='energy', value="medium" checked)
+            | Medium
+          else
+            input(type='radio', name='energy', value="medium")
+            | Medium
         label.radio-inline
-          input(type='radio', name='energy', value="high")
-          | High
+          if (dog.energy=='high')
+            input(type='radio', name='energy', value="high" checked)
+            | High
+          else
+            input(type='radio', name='energy', value="high" checked)
+            | High
     .form-group.row
       br
-      label.col-sm-2(for='about') About:
-      .col-sm-4
-        textarea#about.form-control.col-sm-5(rows='5', placeholder="I Woof")
+      label.col-sm-2.col-form-label(for='about') About:
+      .col-sm-6
+        textarea#about.form-control.col-sm-5(rows='5', name="about",  placeholder="I Woof")=dog.about
     .form-group.row
       label.col-sm-2(for='picture') Profile Picture
       .col-sm-4

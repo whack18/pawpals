@@ -1,22 +1,26 @@
 extends layout
 
 block content
-  h1 Dashboard
-  div
-    h3 Nearby Dogs
-    ul
-      each person in result
-        li
-          each dog in person.dogs
-            a(href='/dog/'+dog._id)
-              div
-                if dog.picture.length
-                  img(src=dog.picture[0], class='profile', width='200', height='200')
-                else
-                  img(src='/imgs/default-dog.png', class='profile', width='200', height='200')
-            div
-              span=dog.name
-              span !{' '}-!{' '}
-              span=person.city
-              span ,!{' '}
-              span=person.state
+  h1.text-center=user.username + "\'s Dashboard"
+  div.container
+    each person in result
+      if(person.username != user.username)
+        div.container
+          div.row
+            hr
+            .panel.panel-default
+              .panel-heading.h4=person.username +' lives nearby and has ' + person.dogs.length + " dogs!"
+              .panel-body
+                each dog in person.dogs
+                    .col-sm-4
+                      .panel.panel-success
+                        .panel-heading="Name: " + dog.name
+                        a(href='/dog/'+dog._id)
+                          .panel-body
+                            img.img-responsive(src=dog.picture[0], class='profile', width='200', height='200')
+                        .panel-footer="Breed: " + dog.breed
+                          span !{' '}!{' '}
+                          p="Location: " + person.city + ", " + person.state
+                          a(href='/dog/'+dog._id).btn.btn-success
+                            i.fa.fa-paw
+                            |  View Profile
