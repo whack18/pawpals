@@ -2,3 +2,18 @@
    font-size: 5em;
    background-color: #9be8dc;
  }
+
+ .comment-name
+ {
+  float: left;
+ }
+
+.comment-date
+{
+  float: right;
+}
+
+.comment-content
+{
+  clear: both;
+}

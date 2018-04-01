@@ -47,5 +47,37 @@ block content
         .col-sm-3= dog.about
     .col-sm-6
       h2 Messages
-      p one comment
-      p two comment
+      .panel-group
+      each comment in dog.comments
+        .panel.panel-default
+          .panel-heading
+            span= comment.username
+            span.pull-right= comment.created
+          .panel-body
+            div
+              span Suggested Pal:!{' '}
+                a(href=comment.palid)= comment.palname
+            br
+            div= comment.content 
+      fieldset
+        legend.text-info Submit New Message
+        form(method='post', action='/dog/comment/'+dog._id)
+          .form-group.row
+            .col-sm-2 Name:!{' '}
+            .col-sm-4= user.username
+              input(type='hidden',name='userid',value=user._id)
+              input(type='hidden',name='username',value=user.username)
+          .form-group.row
+            .col-sm-2 Paw Pal:!{' '}
+            .col-sm-4
+              select(name="palid")
+                each dog in user.dogs
+                  option(value=dog._id)
+                    span=dog.name
+          .form-group.row
+            .col-sm-2 Comment:!{' '}
+            .col-sm-4
+              textarea(name="comment",rows=4, cols=50)
+          .form-group.row
+            .col-sm-offset-2.col-sm-4
+              input.btn.btn-primary(type="submit", value="Send Message")

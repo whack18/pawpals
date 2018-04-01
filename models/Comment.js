@@ -8,6 +8,8 @@ const commentSchema = new Schema({
    content: String,
    created: Date,
    dogid: String,
+   palid: String,
+   palname: String,
    city: String,
    state: String
 }, { timestamps: true });

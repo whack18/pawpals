@@ -1,6 +1,7 @@
 const passport = require('passport');
 const Dog = require('../models/Dog');
 const User = require('../models/User');
+const Comment = require('../models/Comment');
 
 /**
  * GET /addDog
@@ -57,37 +58,72 @@ exports.postAddDog = (req, res, next) => {
 
 // Get Dog page
 exports.getEditDog = function(req, res){
-  Dog.findById(req.params.id, function(err, dog){
+  Dog.findById(req.params.id).populate('comments').exec(function(err, dog){
     if(err){
       console.log(err);
       return;
     }
 
-    User.findById(dog.owner, function(owner_err, dog_owner){
+    User.findById(dog.owner).populate('dogs').exec(function(owner_err, dog_owner){
       if(owner_err){
         console.log(owner_err);
         return;
       }
 
-      /* If user is logged in and is dog's owner, show edit page */
-      if(req.user && req.user._id == dog.owner){
-        res.render("account/editDog", {
-          title:'Dog ' + dog.name,
-          dog: dog, owner: dog_owner
-        });
-      }
+      User.findById(req.user._id).populate('dogs').exec(function(user_err, cur_user){
+        if(user_err){
+          console.log(user_err);
+          return;
+        }
+  
+        /* If user is logged in and is dog's owner, show edit page */
+        if(req.user && req.user._id == dog.owner){
+          res.render("account/editDog", {
+            title:'Dog ' + dog.name,
+            dog: dog, owner: dog_owner, user: cur_user
+          });
+        }
 
-      /* If another user just browsing, show dog page */ 
-      else {
-        res.render("dog", {
-          title:'Dog ' + dog.name,
-          dog: dog, owner: dog_owner
-        });
-      }
+        /* If another user just browsing, show dog page */ 
+        else {
+          res.render("dog", {
+            title:'Dog ' + dog.name,
+            dog: dog, owner: dog_owner, user: cur_user
+          });
+        }
 
+      });
     });
   });
 };
+
+//Post route to add comment
+exports.postComment = function(req,res){
+  Dog.findById(req.body.palid, function(err, paldog){
+    const newComment = new Comment({
+      username : req.body.username,
+      userid: req.body.userid,
+      content : req.body.comment,
+      palid: req.body.palid,
+      palname: paldog.name,
+      dogid: req.params.id,
+      created : Date.now()
+    }).save( function(err, comment, count){
+      Dog.findByIdAndUpdate(
+        req.params.id,
+        {$push: {comments: comment}},
+        {safe: true, upsert: true},
+        function(err, model) {
+          if(err){
+            console.log(err);
+          }
+          req.flash('success', { msg: 'Message submitted.' });
+          res.redirect('/dog/'+req.params.id);
+        }
+      );
+    });
+  });
+}
 
 //Post route for Update to Dog
 exports.postUpdateDog = function(req, res){
