@@ -12,8 +12,7 @@ const dogSchema = new mongoose.Schema({
   temperament:  String,
   energy_level: String,
   about:        String,
-
-
+  comments: [{ type: Schema.Types.ObjectId, ref: 'Comment' }]
 }, { timestamps: true });
 
 let Dog = module.exports = mongoose.model('Dog', dogSchema);
