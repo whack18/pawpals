@@ -48,6 +48,9 @@ block content
     .col-sm-6
       h2 Messages
       .panel-group
+      unless dog.comments.length
+        .panel.panel-default
+          .panel-body No messages yet.
       each comment in dog.comments
         .panel.panel-default
           .panel-heading

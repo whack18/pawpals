@@ -3,23 +3,70 @@ extends ../layout
 block content
   .page-header
     h1 #{title}
+  .row
+    .col-sm-12
+      h2.text-info Messages
+      .panel-group
+      unless dog.comments.length
+        .panel.panel-default
+          .panel-body No messages yet.
+      each comment in dog.comments
+        .panel.panel-default
+          .panel-heading
+            span= comment.username
+            span.pull-right= comment.created
+          .panel-body
+            div
+              span Suggested Pal:!{' '}
+                a(href=comment.palid)= comment.palname
+            br
+            div= comment.content 
+  .row
+    .col-sm-12
+      fieldset
+        legend Submit New Message
+        form(method='post', action='/dog/comment/'+dog._id)
+          .form-group.row
+            .col-sm-2 Name:!{' '}
+            .col-sm-4= user.username
+              input(type='hidden',name='userid',value=user._id)
+              input(type='hidden',name='username',value=user.username)
+          .form-group.row
+            .col-sm-2 Paw Pal:!{' '}
+            .col-sm-4
+              select(name="palid")
+                each dog in user.dogs
+                  option(value=dog._id)
+                    span=dog.name
+          .form-group.row
+            .col-sm-2 Comment:!{' '}
+            .col-sm-4
+              textarea(name="comment",rows=4, cols=50)
+          .form-group.row
+            .col-sm-offset-2.col-sm-4
+              input.btn.btn-primary(type="submit", value="Send Message")
+
+  hr
+  h3.text-info Edit Dog
+  br
   form(method='POST', enctype='multipart/form-data', action='/dog/edit/'+dog._id)
     input(type='hidden', name='_csrf', value=_csrf)
     .form-group.row
-      label.col-sm-2.col-form-label(for='name') Name
-      .col-sm-6
+      .col-sm-2
+        label(for='name') Name
+      .col-sm-4
         input.form-control(type='text', name='name', id='name', placeholder='Fido' required, value=dog.name)
     .form-group.row
-      label.col-sm-2.col-form-label(for='breed') Breed
-      .col-sm-6
+      label.col-sm-2(for='breed') Breed
+      .col-sm-4
         input.form-control(type='text', name='breed', id='breed', value=dog.breed)
     .form-group.row
-      label.col-sm-2.col-form-label(for='weight') Weight (lb)
+      label.col-sm-2(for='weight') Weight (lb)
       .col-sm-2
         input.form-control(type='number', name='weight', id='weight', value=dog.weight)
     fieldset.form-group.row
-      label.col-sm-2.col-form-label(for='gender') Gender
-      .col-sm-6
+      label.col-sm-2(for='gender') Gender
+      .col-sm-4
         label.radio-inline
           if (dog.gender=='male')
               input(type='radio', name='gender', value="male" required checked)
@@ -31,12 +78,12 @@ block content
           input(type='radio', name='gender', value="female" required)
           | Female
     .form-group.row
-      label.col-sm-2.col-form-label(for='age') Age(Birthdate) 
+      label.col-sm-2(for='age') Age(Birthdate) 
       .col-sm-2
         input.form-control(type='date', name='age', id='age', value=dog.age)
     .form-group.row
-      label.col-sm-2.col-form-label(for='fixed') Fixed
-      .col-sm-6
+      label.col-sm-2(for='fixed') Fixed
+      .col-sm-4
         label.radio-inline
           if (dog.fixed=='yes')
               input(type='radio', name='fixed', value="yes" checked)
@@ -52,8 +99,8 @@ block content
               input(type='radio', name='fixed', value="no")
               | No
     .form-group.row
-      label.col-sm-2.col-form-label(for='temperament') Temperament
-      .col-sm-6
+      label.col-sm-2(for='temperament') Temperament
+      .col-sm-4
         label.checkbox-inline
           input(type='checkbox', name='temperament', value="calm")
           | Calm
@@ -70,8 +117,8 @@ block content
           input(type='checkbox', name='temperament', value="aggressive")
           | Aggressive
     .form-group.row
-      label.col-sm-2.col-form-label(for='energy') Energy
-      .col-sm-6
+      label.col-sm-2(for='energy') Energy
+      .col-sm-4
         label.radio-inline
           input(type='radio', name='energy', value="low")
           | Low
@@ -83,12 +130,12 @@ block content
           | High
     .form-group.row
       br
-      label.col-sm-2.col-form-label(for='about') About:
-      .col-sm-6
+      label.col-sm-2(for='about') About:
+      .col-sm-4
         textarea#about.form-control.col-sm-5(rows='5', placeholder="I Woof")
     .form-group.row
-      label.col-sm-2.col-form-label(for='picture') Profile Picture
-      .col-sm-6
+      label.col-sm-2(for='picture') Profile Picture
+      .col-sm-4
         if dog.picture.length
           img(src=dog.picture[0], class='profile', height='200', width='200')
         else
@@ -97,7 +144,7 @@ block content
         input(type='file' name='dog-pic')
     .form-group.row
       br
-      .col-sm-offset-2.col-sm-6
+      .col-sm-offset-2.col-sm-4
         button.btn.btn-success(type='submit')
-          i.fa.fa-paw
-          | Edit Dog
+              i.fa.fa-paw
+              | Edit Dog

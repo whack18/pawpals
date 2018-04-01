@@ -28,8 +28,15 @@ exports.index = (req, res, next) => {
 
       /* result contains all users found (including logged in user) and their dogs */
 
+      let cur_user;
+      for(let i=0; i<result.length; i++){
+        if(String(result[i]._id) === String(req.user._id)){
+          cur_user = result[i];
+        }
+      }
+
       res.render('dashboard', {
-        title: 'Dashboard', result: result
+        title: 'Dashboard', result: result, user:cur_user
       });
     });
 
