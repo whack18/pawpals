@@ -1,4 +1,3 @@
 module.exports = {
-    database: 'mongodb://localhost:27017/pawpals',
-    secret: 'yoursecret'
+    database: 'mongodb://pawpals_admin:usHqYBAfi8r0@ds231589.mlab.com:31589/pawpals'
 }
