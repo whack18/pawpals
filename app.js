@@ -164,6 +164,8 @@ app.get('/account/unlink/:provider', passportConfig.isAuthenticated, userControl
 
 app.get('/api/google-maps', apiController.getGoogleMaps);
 
+app.get('/getFakeUsers', userController.getFakeUsers);
+
 /**
  * Error Handler.
  */
