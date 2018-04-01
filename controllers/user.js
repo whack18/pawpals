@@ -5,6 +5,7 @@ const passport = require('passport');
 const User = require('../models/User');
 const Dogs = require('../models/Dog');
 const zipcodes = require('zipcodes');
+const faker = require('faker');
 /**
  * GET /login
  * Login page.
@@ -441,4 +442,42 @@ exports.postForgot = (req, res, next) => {
     .then(sendForgotPasswordEmail)
     .then(() => res.redirect('/forgot'))
     .catch(next);
+};
+
+
+/**
+ * Generate fake users
+ */
+exports.getFakeUsers = (req, res, next) => {
+  for(let i = 0; i < 300; i++){
+    let randomUsername = faker.internet.userName(); 
+    let randomName = faker.name.findName();
+    let randomEmail = faker.internet.email();
+    let password = "testers";
+    let randomZipcode = faker.address.zipCode();
+    // console.log(randomZipcode);
+    // const zip = zipcodes.lookup(randomZipcode);
+    // console.log(zip);
+    let long = faker.address.longitude();
+    let lat = faker.address.latitude();
+  
+    let user = new User({
+      username: randomUsername,
+      fullname: randomName,
+      email: randomEmail,
+      password: password,
+      zipcode: randomZipcode,
+      location: {type: 'Point', coordinates: [long, lat]}
+    });
+    user.save((err) => {
+      if (err) { return next(err); }
+      req.logIn(user, (err) => {
+        if (err) {
+          return next(err);
+        }
+        console.log("Created random user");
+      });
+    });
+  }
+  return res.redirect('/');
 };
