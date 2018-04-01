@@ -164,7 +164,7 @@ exports.getAccount = (req, res) => {
       dogs = person.dogs;
     }
     res.render('account/profile', {
-      title: 'Account Management', dogs: dogs
+      title: 'Account Management', dogs: dogs, user:person
     });
   })
 };
