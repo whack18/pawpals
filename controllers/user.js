@@ -4,7 +4,7 @@ const nodemailer = require('nodemailer');
 const passport = require('passport');
 const User = require('../models/User');
 const Dogs = require('../models/Dog');
-
+const zipcodes = require('zipcodes');
 
 /**
  * GET /login
@@ -93,11 +93,29 @@ exports.postSignup = (req, res, next) => {
     return res.redirect('/signup');
   }
 
+  const zip = zipcodes.lookup(req.body.zipcode);
+  let zipcode_error;
+  if(!zip){
+    zipcode_error = {
+      location: 'body',
+      param: 'zipcode',
+      msg: 'Invalid ZIP Code.',
+      value: req.body.zipcode
+    };
+  }
+
+  if(zipcode_error){
+    req.flash('errors', zipcode_error);
+    return res.redirect('/signup');
+  }
+
   const user = new User({
     username: req.body.username,
     fullname: req.body.fullname,
     email: req.body.email,
-    password: req.body.password
+    password: req.body.password,
+    zipcode: req.body.zipcode,
+    location = {type: 'Point', coordinates: [zip.longitude, zip.latitude]}
   });
   //Note: Password gets hashed with bcrypt. See User.js in Models
 
@@ -163,13 +181,30 @@ exports.postUpdateProfile = (req, res, next) => {
     return res.redirect('/account');
   }
 
+  const zip = zipcodes.lookup(req.body.zipcode);
+  let zipcode_error;
+  if(!zip){
+    zipcode_error = {
+      location: 'body',
+      param: 'zipcode',
+      msg: 'Invalid ZIP Code.',
+      value: req.body.zipcode
+    };
+  }
+
+  if(zipcode_error){
+    req.flash('errors', zipcode_error);
+    return res.redirect('/account');
+  }
+
   User.findById(req.user.id, (err, user) => {
     if (err) { return next(err); }
     user.email = req.body.email || '';
     user.birthdate = req.body.birthdate || '';
     user.profile.fullname = req.body.fullname || '';
     user.profile.gender = req.body.gender || '';
-    user.profile.location = req.body.location || '';
+    user.zipcode = req.body.zipcode || '';
+    user.location = {type: 'Point', coordinates: [zip.longitude, zip.latitude]};
     user.profile.biography = req.body.biography || '';
     if(req.file){
       user.profile.picture = '../uploads/' + req.file.filename;
