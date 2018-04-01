@@ -26,6 +26,8 @@ const userSchema = Schema({
   dogs: [{ type: Schema.Types.ObjectId, ref: 'Dog' }]
 }, { timestamps: true });
 
+userSchema.index({location:"2dsphere"});
+
 /**
  * Password hash middleware.
  */

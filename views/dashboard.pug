@@ -1,0 +1,17 @@
+extends layout
+
+block content
+  style
+    include ../public/css/home.css
+  h1 Dashboard
+  div
+    h3 Nearby Dogs
+    ul
+      each person in result
+        li
+          each dog in person.dogs
+            div
+              dog.name
+            div
+              if dog.picture
+                img(src=dog.picture[0],class='profile', width='200', height='200')
