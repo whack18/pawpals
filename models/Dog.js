@@ -1,8 +1,6 @@
 const mongoose = require('mongoose');
 let Schema = mongoose.Schema;
 
-const Schema = mongoose.Schema;
-
 const dogSchema = new Schema({
   owner:        String,
   picture:      [String],
