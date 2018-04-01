@@ -104,15 +104,6 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' || req.path === '/account/profile' || req.path === '/account/addDog' || req.path ==='/account/editDog') {
-    next();
-  } else {
-    lusca.csrf()(req, res, next);
-  }
-});
-app.use(lusca.xframe('SAMEORIGIN'));
-app.use(lusca.xssProtection(true));
-app.use((req, res, next) => {
   res.locals.user = req.user;
   next();
 });
@@ -151,8 +142,8 @@ app.post('/signup', userController.postSignup);
 app.get('/account/addDog', dogController.getAddDog);
 app.post('/account/addDog', upload.single('dog-pic'), dogController.postAddDog);
 app.post('/dog/delete/:id', dogController.postDeleteDog);
-app.get('/dog/edit/:id', dogController.getEditDog);
-app.post('/dog/edit/:id', dogController.postUpdateDog);
+app.get('/dog/:id', dogController.getEditDog);
+app.post('/dog/edit/:id', upload.single('dog-pic'), dogController.postUpdateDog);
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);

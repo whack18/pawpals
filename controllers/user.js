@@ -208,7 +208,7 @@ exports.postUpdateProfile = (req, res, next) => {
     user.location = {type: 'Point', coordinates: [zip.longitude, zip.latitude]};
     user.profile.biography = req.body.biography || '';
     if(req.file){
-      user.profile.picture = '../uploads/' + req.file.filename;
+      user.profile.picture = '/uploads/' + req.file.filename;
     }
     user.save((err) => {
       if (err) {

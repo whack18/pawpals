@@ -1,5 +1,6 @@
 const passport = require('passport');
 const Dog = require('../models/Dog');
+const User = require('../models/User');
 
 /**
  * GET /addDog
@@ -36,7 +37,7 @@ exports.postAddDog = (req, res, next) => {
       dog.energy_level = req.body.energy_level || '';
       dog.about = req.body.about || '';
       if(req.file){
-          dog.picture = '../uploads/' + req.file.filename;
+          dog.picture = '/uploads/' + req.file.filename;
       }
       dog.save((err) => {
           if(err){
@@ -54,14 +55,38 @@ exports.postAddDog = (req, res, next) => {
 };
 
 
-//Load Edit Dog Form
+// Get Dog page
 exports.getEditDog = function(req, res){
   Dog.findById(req.params.id, function(err, dog){
-    res.render("account/editDog", {
-      title:'Edit Dog',
-      dog:dog
-    })
-  })
+    if(err){
+      console.log(err);
+      return;
+    }
+
+    User.findById(dog.owner, function(owner_err, dog_owner){
+      if(owner_err){
+        console.log(owner_err);
+        return;
+      }
+
+      /* If user is logged in and is dog's owner, show edit page */
+      if(req.user && req.user._id == dog.owner){
+        res.render("account/editDog", {
+          title:'Dog ' + dog.name,
+          dog: dog, owner: dog_owner
+        });
+      }
+
+      /* If another user just browsing, show dog page */ 
+      else {
+        res.render("dog", {
+          title:'Dog ' + dog.name,
+          dog: dog, owner: dog_owner
+        });
+      }
+
+    });
+  });
 };
 
 //Post route for Update to Dog
@@ -77,6 +102,9 @@ exports.postUpdateDog = function(req, res){
   dog.temperament = req.body.temperament || '';
   dog.energy_level = req.body.energy_level || '';
   dog.about = req.body.about || '';
+  if(req.file){
+    dog.picture = '/uploads/' + req.file.filename;
+  }
   
   let query = {_id:req.params.id}
   Dog.update(query, dog, (err) =>{
@@ -85,13 +113,10 @@ exports.postUpdateDog = function(req, res){
       return;
     } else {
       req.flash('success', {msg: `${dog.name} has been updated`});
-      res.redirect('/account');
+      res.redirect('/dog/'+req.params.id);
     }
   });
 }
-
-
-
 
 /**
  * POST /dog/delete

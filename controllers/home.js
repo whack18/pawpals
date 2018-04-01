@@ -25,7 +25,6 @@ exports.index = (req, res, next) => {
     /* Find users matching parameters, populate Dogs */
     User.find(query).populate('dogs').exec(function (err, result) {
       if (err) return next(err);
-      console.log(result);
 
       /* result contains all users found (including logged in user) and their dogs */
 

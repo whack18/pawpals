@@ -20,52 +20,56 @@ block content
             input.form-control(type='number', name='weight', id='weight' placeholder='55')
         fieldset.form-group.row
           label.col-sm-2.col-form-label(for='gender') Gender
-          label.radio-inline
-            input(type='radio', name='gender', value="male" required)
-            | Male
-          label.radio-inline
-            input(type='radio', name='gender', value="female" required)
-            | Female
+          .col-sm-5
+            label.radio-inline
+              input(type='radio', name='gender', value="male" required)
+              | Male
+            label.radio-inline
+              input(type='radio', name='gender', value="female" required)
+              | Female
         .form-group.row
           label.col-sm-2.col-form-label(for='age') Age(Birthdate) 
           .col-sm-2
             input.form-control(type='date', name='age', id='age')
         .form-group.row
           label.col-sm-2.col-form-label(for='fixed') Fixed
-          label.radio-inline
-            input(type='radio', name='fixed', value="yes")
-            | Yes
-          label.radio-inline
-            input(type='radio', name='fixed', value="no")
-            | No
+          .col-sm-5
+            label.radio-inline
+              input(type='radio', name='fixed', value="yes")
+              | Yes
+            label.radio-inline
+              input(type='radio', name='fixed', value="no")
+              | No
         .form-group.row
           label.col-sm-2.col-form-label(for='temperament') Temperament
-          label.checkbox-inline
-            input(type='checkbox', name='temperament', value="calm")
-            | Calm
-          label.checkbox-inline
-            input(type='checkbox', name='temperament', value="excitable")
-            | Excitable
-          label.checkbox-inline
-            input(type='checkbox', name='temperament', value="friendly")
-            | Friendly
-          label.checkbox-inline
-            input(type='checkbox', name='temperament', value="shy")
-            | Shy
-          label.checkbox-inline
-            input(type='checkbox', name='temperament', value="aggressive")
-            | Aggressive
+          .col-sm-5
+            label.checkbox-inline
+              input(type='checkbox', name='temperament', value="calm")
+              | Calm
+            label.checkbox-inline
+              input(type='checkbox', name='temperament', value="excitable")
+              | Excitable
+            label.checkbox-inline
+              input(type='checkbox', name='temperament', value="friendly")
+              | Friendly
+            label.checkbox-inline
+              input(type='checkbox', name='temperament', value="shy")
+              | Shy
+            label.checkbox-inline
+              input(type='checkbox', name='temperament', value="aggressive")
+              | Aggressive
         .form-group.row
           label.col-sm-2.col-form-label(for='energy') Energy
-          label.radio-inline
-            input(type='radio', name='energy', value="low")
-            | Low
-          label.radio-inline
-            input(type='radio', name='energy', value="medium")
-            | Medium
-          label.radio-inline
-            input(type='radio', name='energy', value="high")
-            | High
+          .col-sm-5
+            label.radio-inline
+              input(type='radio', name='energy', value="low")
+              | Low
+            label.radio-inline
+              input(type='radio', name='energy', value="medium")
+              | Medium
+            label.radio-inline
+              input(type='radio', name='energy', value="high")
+              | High
         .form-group.row
           br
           label.col-sm-2.col-form-label(for='about') About:
@@ -75,9 +79,9 @@ block content
           label.col-sm-2.col-form-label(for='picture') Profile Picture
           .col-sm-7
             input(type='file' name='dog-pic')
-        .form-group
+        .form-group.row
           br
-          .col-sm-offset-3.col-sm-6
+          .col-sm-offset-2.col-sm-6
             button.btn.btn-success(type='submit')
               i.fa.fa-paw
-              | Add Doggo
+              | Add Dog
