@@ -7,7 +7,7 @@ COPY package.json /starter/package.json
 
 RUN npm install --production
 
-COPY .env /starter/.env
+COPY .env.example /starter/.env.example
 COPY . /starter
 
 CMD ["npm","start"]
