@@ -89,8 +89,10 @@ block content
     .form-group.row
       label.col-sm-2.col-form-label(for='picture') Profile Picture
       .col-sm-6
-        if(dog.picture.length)
+        if dog.picture.length
           img(src=dog.picture[0], class='profile', height='200', width='200')
+        else
+          img(src='/imgs/default-dog.png', class='profile', width='200', height='200')
         br
         input(type='file' name='dog-pic')
     .form-group.row

@@ -115,7 +115,9 @@ exports.postSignup = (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     zipcode: req.body.zipcode,
-    location: {type: 'Point', coordinates: [zip.longitude, zip.latitude]}
+    location: {type: 'Point', coordinates: [zip.longitude, zip.latitude]},
+    city: zip.city,
+    state: zip.state
   });
   //Note: Password gets hashed with bcrypt. See User.js in Models
 
@@ -207,6 +209,8 @@ exports.postUpdateProfile = (req, res, next) => {
     user.zipcode = req.body.zipcode || '';
     user.location = {type: 'Point', coordinates: [zip.longitude, zip.latitude]};
     user.profile.biography = req.body.biography || '';
+    user.state = zip.state;
+    user.city = zip.city;
     if(req.file){
       user.profile.picture = '/uploads/' + req.file.filename;
     }

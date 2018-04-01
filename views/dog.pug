@@ -16,8 +16,11 @@ block content
           else
             img(src='/imgs/default-dog.png', class='profile', width='200', height='200')
       .form-group.row
-        .col-sm-3 Zip Code
-        .col-sm-3= owner.zipcode
+        .col-sm-3 Location
+        .col-sm-3
+          span=owner.city
+          span ,!{' '}
+          span=owner.state
       .form-group.row
         .col-sm-3 Breed
         .col-sm-3= dog.breed

@@ -16,6 +16,8 @@ const userSchema = new Schema({
     type: { type: String }, 
     coordinates: []
   },
+  city: String,
+  state: String,
 
   profile: {
     birthdate: Date,
