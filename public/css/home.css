@@ -6,10 +6,6 @@ body, html {
     line-height: 1.8em;
     color: #333;
 }
-.nav-font{
-  font-size: 5em;
-  background-color: #9be8dc;
-}
 .home {
     position:absolute;
     top:0;

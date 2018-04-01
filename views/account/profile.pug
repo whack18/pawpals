@@ -55,21 +55,22 @@ block content
 
   .page-header
     h3 Dog Information
-      ul
-        each dog in dogs
-          li
-            h4= dog.name
-            div
-              if dog.picture.length
-                img(src=dog.picture[0], class='profile', width='200', height='200')
-            div Breed: 
-              span= dog.breed
-            p= dog.age
-            a.btn.btn-info(href='/dog/edit/'+dog._id) Edit
-            form.form-horizontal(action='/dog/delete/'+dog._id, method='POST')
-              input(type='hidden', name='_csrf', value=_csrf)
-              br
-              button.btn.btn-danger(type='submit') Delete
+  ul
+    each dog in dogs
+      li
+        h4
+          a(href='/dog/'+dog._id)= dog.name
+        div
+          if dog.picture.length
+            img(src=dog.picture[0], class='profile', width='200', height='200')
+        div Breed: 
+          span= dog.breed
+        p= dog.age
+        a.btn.btn-info(href='/dog/'+dog._id) Edit
+        form.form-horizontal(action='/dog/delete/'+dog._id, method='POST')
+          input(type='hidden', name='_csrf', value=_csrf)
+          br
+          button.btn.btn-danger(type='submit') Delete
 
 
   .page-header

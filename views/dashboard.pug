@@ -1,8 +1,6 @@
 extends layout
 
 block content
-  style
-    include ../public/css/home.css
   h1 Dashboard
   div
     h3 Nearby Dogs
@@ -11,7 +9,9 @@ block content
         li
           each dog in person.dogs
             div
-              dog.name
+              a(href='/dog/'+dog._id)=dog.name
             div
-              if dog.picture
-                img(src=dog.picture[0],class='profile', width='200', height='200')
+              if dog.picture.length
+                img(src=dog.picture[0], class='profile', width='200', height='200')
+              else
+                img(src='/imgs/default-dog.png', class='profile', width='200', height='200')

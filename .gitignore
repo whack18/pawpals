@@ -17,6 +17,7 @@ tmp
 .npm
 
 #Build
+uploads/*
 public/css/main.css
 .nyc_output/*
 

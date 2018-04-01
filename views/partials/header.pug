@@ -10,21 +10,20 @@
         i.fa.fa-paw
         | PAWPALS
     .collapse.navbar-collapse
-      ul.nav.navbar-nav.navbar-right
+      ul.nav.navbar-nav
         li(class=(title === 'Home') ? 'active' : undefined)
           a(href='/') Home
-        li(class=(title === 'Map') ? 'active' : undefined)
-          a(href='/map') Map
+        li(class=(title === 'Contact') ? 'active' : undefined)
+          a(href='/contact') Contact
+      ul.nav.navbar-nav.navbar-right
         if !user
           li(class=(title === 'Login') ? 'active' : undefined)
             a(href='/login') Login
           li(class=(title === 'Create Account') ? 'active' : undefined)
             a(href='/signup') Sign Up
         else
-          li(class=(title === 'userProfile') ? 'active' : undefined)
-            a(href='/account/userProfile') Profile
-          li(class=(title === 'Contact') ? 'active' : undefined)
-            a(href='/contact') Contact
+          li(class=(title === 'addDog') ? 'active' : undefined)
+            a(href='/account/addDog') Add Dog
           li.dropdown(class=(title === 'Account Management') ? 'active' : undefined)
             a.dropdown-toggle(href='#', data-toggle='dropdown')
               if user.profile.picture

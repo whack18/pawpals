@@ -1,0 +1,48 @@
+extends layout
+
+block content
+  .page-header
+    h1 #{title}
+  .row
+    .col-sm-6
+      .form-group.row
+        .col-sm-3 Name
+        .col-sm-3= dog.name
+      .form-group.row
+        .col-sm-3 Profile Picture
+        .col-sm-3
+          if dog.picture.length
+            img(src=dog.picture[0],class='profile', height='200', width='200')
+          else
+            img(src='/imgs/default-dog.png', class='profile', width='200', height='200')
+      .form-group.row
+        .col-sm-3 Zip Code
+        .col-sm-3= owner.zipcode
+      .form-group.row
+        .col-sm-3 Breed
+        .col-sm-3= dog.breed
+      .form-group.row
+        .col-sm-3 Weight (lb)
+        .col-sm-3= dog.weight
+      .form-group.row
+        .col-sm-3 Gender
+        .col-sm-3= dog.gender
+      .form-group.row
+        .col-sm-3 Age
+        .col-sm-3= dog.age
+      .form-group.row
+        .col-sm-3 Fixed
+        .col-sm-3= dog.fixed
+      .form-group.row
+        .col-sm-3 Temperament
+        .col-sm-3= dog.temperament
+      .form-group.row
+        .col-sm-3 Energy
+        .col-sm-3= dog.energy
+      .form-group.row
+        .col-sm-3 About
+        .col-sm-3= dog.about
+    .col-sm-6
+      h2 Messages
+      p one comment
+      p two comment
