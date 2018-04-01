@@ -30,7 +30,7 @@ passport.use(new LocalStrategy({ usernameField: 'username' }, (username, passwor
   //   }
     //Match username
     let query = { username: username };
-    User.findOne(query, (err, user) => {
+    User.findOne(query).populate('dogs').exec((err, user) => {
       if(err){ return done(err);}
       if(!user){
         return done(null, false, { msg: `No user ${username} was found.`})

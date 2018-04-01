@@ -8,8 +8,10 @@ const Comment = require('../models/Comment');
  * Add Dog Page
  */
 exports.getAddDog = (ensureAuthenticated, (req, res) => {
-  res.render('account/addDog', {
-    title: 'Add Dog'
+  User.findById(req.user._id).populate('dogs').exec(function(err, result) {
+    res.render('account/addDog', {
+      title: 'Add Dog', user: result
+    });
   });
 });
 

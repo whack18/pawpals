@@ -35,6 +35,12 @@
             ul.dropdown-menu
               li
                 a(href='/account') My Account
+              if user.dogs.length
+                li.divider
+                each dog in user.dogs
+                  li
+                    a(href='/dog/'+dog._id)
+                      span= dog.name
               li.divider
               li
                 a(href='/logout') Logout

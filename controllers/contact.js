@@ -1,4 +1,5 @@
 const nodemailer = require('nodemailer');
+const User = require('../models/User');
 
 const transporter = nodemailer.createTransport({
   service: 'SendGrid',
@@ -13,12 +14,24 @@ const transporter = nodemailer.createTransport({
  * Contact form page.
  */
 exports.getContact = (req, res) => {
-  const unknownUser = !(req.user);
+  if(req.user){
+    User.findById(req.user._id).populate('dogs').exec(function(err, result) {
+      const unknownUser = !(req.user);
 
-  res.render('contact', {
-    title: 'Contact',
-    unknownUser,
-  });
+      res.render('contact', {
+        title: 'Contact',
+        unknownUser,
+        user: result
+      });
+    });
+  } else {
+    const unknownUser = !(req.user);
+
+    res.render('contact', {
+      title: 'Contact',
+      unknownUser,
+    });
+  }
 };
 
 /**
