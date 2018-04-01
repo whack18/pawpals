@@ -2,25 +2,26 @@ extends layout
 
 block content
   h1.text-center=user.username + "\'s Dashboard"
-  div.container
-    each person in result
-      if(person.username != user.username)
-        div.container
-          div.row
-            hr
-            .panel.panel-default
-              .panel-heading.h4=person.username +' lives nearby and has ' + person.dogs.length + " dogs!"
-              .panel-body
-                each dog in person.dogs
-                    .col-sm-4
-                      .panel.panel-success
-                        .panel-heading="Name: " + dog.name
-                        a(href='/dog/'+dog._id)
-                          .panel-body
-                            img.img-responsive(src=dog.picture[0], class='profile', width='200', height='200')
-                        .panel-footer="Breed: " + dog.breed
-                          span !{' '}!{' '}
-                          p="Location: " + person.city + ", " + person.state
-                          a(href='/dog/'+dog._id).btn.btn-success
-                            i.fa.fa-paw
-                            |  View Profile
+  each person in result
+    if(person.username != user.username)
+      .row
+        .panel.panel-default
+          .panel-heading
+            h4=person.username +' lives nearby and has ' + person.dogs.length + " dogs!"
+          .panel-body
+            each dog in person.dogs
+                .col-sm-4
+                  .panel.panel-success
+                    .panel-heading="Name: " + dog.name
+                    a(href='/dog/'+dog._id)
+                      .panel-body
+                        if dog.picture.length
+                          img.profile(src=dog.picture[0], width='200', height='200')
+                        else
+                          img.profile(src='/imgs/default-dog.png', width='200', height='200')
+                    .panel-footer="Breed: " + dog.breed
+                      span !{' '}!{' '}
+                      p="Location: " + person.city + ", " + person.state
+                      a(href='/dog/'+dog._id).btn.btn-success
+                        i.fa.fa-paw
+                        |  View Profile
