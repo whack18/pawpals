@@ -53,6 +53,59 @@ exports.postAddDog = (req, res, next) => {
     }
 };
 
+
+//Load Edit Dog Form
+exports.getEditDog = function(req, res){
+  Dog.findById(req.params.id, function(err, dog){
+    res.render("account/editDog", {
+      title:'Edit Dog',
+      dog:dog
+    })
+  })
+};
+
+//Post route for Update to Dog
+exports.postUpdateDog = function(req, res){
+  let dog = {};
+  dog.name = req.body.name;
+  dog.owner = req.user._id; //Connects dog to the user
+  dog.breed = req.body.breed || '';
+  dog.weight = req.body.weight || '';
+  dog.gender = req.body.gender || '';
+  dog.age = req.body.age || '';
+  dog.fixed = req.body.fixed || '';
+  dog.temperament = req.body.temperament || '';
+  dog.energy_level = req.body.energy_level || '';
+  dog.about = req.body.about || '';
+  
+  let query = {_id:req.params.id}
+  Dog.update(query, dog, (err) =>{
+    if(err){
+      console.log(err);
+      return;
+    } else {
+      req.flash('success', {msg: `${dog.name} has been updated`});
+      res.redirect('/account');
+    }
+  });
+}
+
+
+
+
+/**
+ * POST /dog/delete
+ * Delete user account.
+ */
+exports.postDeleteDog = (req, res, next) => {
+  Dog.remove({ _id: req.user.id }, (err) => {
+    if (err) { return next(err); }
+    req.logout();
+    req.flash('info', { msg: 'Your account has been deleted.' });
+    res.redirect('/');
+  });
+};
+
 //Access control - User must be logged in to access this url 
 function ensureAuthenticated(req, res, next){
     if(req.isAuthenticated()){

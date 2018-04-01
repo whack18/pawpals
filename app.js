@@ -103,7 +103,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash());
 app.use((req, res, next) => {
-  if (req.path === '/api/upload' || req.path === '/account/profile' || req.path === '/account/addDog') {
+  if (req.path === '/api/upload' || req.path === '/account/profile' || req.path === '/account/addDog' || req.path ==='/account/editDog') {
     next();
   } else {
     lusca.csrf()(req, res, next);
@@ -149,6 +149,9 @@ app.post('/signup', userController.postSignup);
 
 app.get('/account/addDog', dogController.getAddDog);
 app.post('/account/addDog', upload.single('dog-pic'), dogController.postAddDog);
+// app.post('/dog/delete', passportConfig.isAuthenticated, dogController.postDeleteDog);
+app.get('/dog/edit/:id', dogController.getEditDog);
+app.post('/dog/edit/:id', dogController.postUpdateDog);
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
