@@ -3,42 +3,81 @@ extends ../layout
 block content
   .page-header
     h3 Dog Information
-
-  form.form-horizontal(action='/account/addDog', enctype='multipart/form-data', method='POST')
-    input(type='hidden', name='_csrf', value=_csrf)
-    .form-group
-      label.col-sm-3.control-label(for='name') Name
-      .col-sm-7
-        input.form-control(type='text', name='name', id='name' placeholder='Fido')
-      label.col-sm-3.control-label(for='name') Breed
-      .col-sm-7
-        input.form-control(type='text', name='breed', id='breed' placeholder='Chihuahua')
-      label.col-sm-3.control-label(for='name') Weight (lb)
-      .col-sm-7
-        input.form-control(type='text', name='weight', id='weight' placeholder='55')
-      label.col-sm-3.control-label(for='name') Gender
-      .col-sm-7
-        input.form-control(type='text', name='gender', id='gender' placeholder='Male')
-      label.col-sm-3.control-label(for='name') Age
-      .col-sm-7
-        input.form-control(type='text', name='age', id='age' placeholder='04/15/2013')
-      label.col-sm-3.control-label(for='name') Whether Dog is Fixed
-      .col-sm-7
-        input.form-control(type='text', name='fixed', id='fixed' placeholder='Yes/No')
-      label.col-sm-3.control-label(for='name') Temperament
-      .col-sm-7
-        input.form-control(type='text', name='temperament', id='temperament' placeholder='Calm')
-      label.col-sm-3.control-label(for='name') Energy Level
-      .col-sm-7
-        input.form-control(type='text', name='energy_level', id='energy_level' placeholder='Medium')
-      label.col-sm-3.control-label(for='name') About Dog
-      .col-sm-7
-        input.form-control(type='text', name='about', id='about' placeholder='I Woof')
-      label.col-sm-3.control-label(for='picture') Profile Picture
-      .col-sm-7
-        input(type='file' name='dog-pic')
-    .form-group
-      .col-sm-offset-3.col-sm-6
-        button.btn.btn-success(type='submit')
-          i.fa.fa-paw
-          | Add Doggo
+    .container
+     form.form-horizontal(action='/account/addDog', enctype='multipart/form-data', method='POST')
+        input(type='hidden', name='_csrf', value=_csrf)
+        .form-group.row
+          label.col-sm-2.col-form-label(for='name') Name
+          .col-sm-5
+            input.form-control(type='text', name='name', id='name' placeholder='Fido' required)
+        .form-group.row
+          label.col-sm-2.col-form-label(for='breed') Breed
+          .col-sm-5
+            input.form-control(type='text', name='breed', id='breed' placeholder='Chihuahua')
+        .form-group.row
+          label.col-sm-2.col-form-label(for='weight') Weight (lb)
+          .col-sm-2
+            input.form-control(type='number', name='weight', id='weight' placeholder='55')
+        fieldset.form-group.row
+          label.col-sm-2.col-form-label(for='gender') Gender
+          label.radio-inline
+            input(type='radio', name='gender', value="male" required)
+            | Male
+          label.radio-inline
+            input(type='radio', name='gender', value="female" required)
+            | Female
+        .form-group.row
+          label.col-sm-2.col-form-label(for='age') Age(Birthdate) 
+          .col-sm-2
+            input.form-control(type='date', name='age', id='age')
+        .form-group.row
+          label.col-sm-2.col-form-label(for='fixed') Fixed
+          label.radio-inline
+            input(type='radio', name='fixed', value="yes")
+            | Yes
+          label.radio-inline
+            input(type='radio', name='fixed', value="no")
+            | No
+        .form-group.row
+          label.col-sm-2.col-form-label(for='temperament') Temperament
+          label.checkbox-inline
+            input(type='checkbox', name='temperament', value="calm")
+            | Calm
+          label.checkbox-inline
+            input(type='checkbox', name='temperament', value="excitable")
+            | Excitable
+          label.checkbox-inline
+            input(type='checkbox', name='temperament', value="friendly")
+            | Friendly
+          label.checkbox-inline
+            input(type='checkbox', name='temperament', value="shy")
+            | Shy
+          label.checkbox-inline
+            input(type='checkbox', name='temperament', value="aggressive")
+            | Aggressive
+        .form-group.row
+          label.col-sm-2.col-form-label(for='energy') Energy
+          label.radio-inline
+            input(type='radio', name='energy', value="low")
+            | Low
+          label.radio-inline
+            input(type='radio', name='energy', value="medium")
+            | Medium
+          label.radio-inline
+            input(type='radio', name='energy', value="high")
+            | High
+        .form-group.row
+          br
+          label.col-sm-2.col-form-label(for='about') About:
+          .col-sm-5
+            textarea#about.form-control.col-sm-5(rows='5', placeholder="I Woof")
+        .form-group.row
+          label.col-sm-2.col-form-label(for='picture') Profile Picture
+          .col-sm-7
+            input(type='file' name='dog-pic')
+        .form-group
+          br
+          .col-sm-offset-3.col-sm-6
+            button.btn.btn-success(type='submit')
+              i.fa.fa-paw
+              | Add Doggo

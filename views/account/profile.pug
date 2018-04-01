@@ -65,6 +65,12 @@ block content
             div Breed: 
               span= dog.breed
             p= dog.age
+            a.btn.btn-info(href='/dog/edit/'+dog._id) Edit
+            form.form-horizontal(action='/dog/delete/'+dog._id, method='POST')
+              input(type='hidden', name='_csrf', value=_csrf)
+              br
+              button.btn.btn-danger(type='submit') Delete
+
 
   .page-header
     h3 Change Password
