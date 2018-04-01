@@ -115,7 +115,7 @@ exports.postSignup = (req, res, next) => {
     email: req.body.email,
     password: req.body.password,
     zipcode: req.body.zipcode,
-    location = {type: 'Point', coordinates: [zip.longitude, zip.latitude]}
+    location: {type: 'Point', coordinates: [zip.longitude, zip.latitude]}
   });
   //Note: Password gets hashed with bcrypt. See User.js in Models
 
