@@ -144,12 +144,12 @@ app.post('/reset/:token', userController.postReset);
 app.get('/signup', userController.getSignup);
 app.post('/signup', userController.postSignup);
 
-app.get('/account/addDog', dogController.getAddDog);
-app.post('/account/addDog', upload.single('dog-pic'), dogController.postAddDog);
-app.post('/dog/delete/:id', dogController.postDeleteDog);
-app.get('/dog/:id', dogController.getEditDog);
-app.post('/dog/edit/:id', upload.single('dog-pic'), dogController.postUpdateDog);
-app.post('/dog/comment/:id', dogController.postComment);
+app.get('/account/addDog', passportConfig.isAuthenticated, dogController.getAddDog);
+app.post('/account/addDog', passportConfig.isAuthenticated, upload.single('dog-pic'), dogController.postAddDog);
+app.post('/dog/delete/:id', passportConfig.isAuthenticated, dogController.postDeleteDog);
+app.get('/dog/:id', passportConfig.isAuthenticated, dogController.getEditDog);
+app.post('/dog/edit/:id', passportConfig.isAuthenticated, upload.single('dog-pic'), dogController.postUpdateDog);
+app.post('/dog/comment/:id', passportConfig.isAuthenticated, dogController.postComment);
 
 app.get('/contact', contactController.getContact);
 app.post('/contact', contactController.postContact);
