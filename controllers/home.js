@@ -17,7 +17,7 @@ exports.index = (req, res, next) => {
       { $near :
          {
            $geometry : req.user.location,
-           $maxDistance : 1000000   // 1000 km
+           $maxDistance : 5000000   // 5,000 km
          }
       }
     }
